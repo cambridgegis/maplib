@@ -468,7 +468,8 @@ maplib.finishScripts = function() {
 		// search logic goes here.
 		if (maplib.config.search) {
 			
-			var searchContainerFragment = jQuery("<div class='search_container '><input placeholder='" + maplib.config.search.placeholder  + "' type='text' class='search_container_autocomplete' /></div>");
+			placeholder = (maplib.config.search.placeholder) ? maplib.config.search.placeholder : "Search";
+			var searchContainerFragment = jQuery("<div class='search_container '><input placeholder='" + placeholder  + "' type='text' class='search_container_autocomplete' /></div>");
 			var searchStyle = jQuery.extend({
 				"box-shadow":"0 1px 7px #999999",
 				"background-color": "#F8F8F9",
