@@ -497,6 +497,7 @@ maplib.finishScripts = function() {
 			searchContainerFragment.find('.search_container_autocomplete')
 				.css(searchStyle)
 				.autocomplete({
+				"appendTo": "#map",
 				"minLength" : 2,
 				"open": function(event, ui) {
 					$(this).autocomplete("widget").css({
