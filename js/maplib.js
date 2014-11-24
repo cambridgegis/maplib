@@ -76,15 +76,15 @@ jQuery(document).ready(function() {
 		nStartTime = new Date();
 		jQuery('#message').html("loading leaflet map");
 		var aScripts = [
-			'http://' + maplibPath + '/js/leaflet/leaflet-custom.js',
-			'http://' + maplibPath + '/js/maplib/ImageOverlay.AGSLayer.js',
-			'http://' + maplibPath + '/js/maplib/TileLayer.AGSDynamic.js',
-			'http://' + maplibPath + '/js/maplib/TileLayer.AGSTiled.js',
-			'http://' + maplibPath + '/js/jquery/jquery.getCSS.min.js',
-			'http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js',
-			'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js',
-			'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js',
-			'http://maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts',
+			'//' + maplibPath + '/js/leaflet/leaflet-custom.js',
+			'//' + maplibPath + '/js/maplib/ImageOverlay.AGSLayer.js',
+			'//' + maplibPath + '/js/maplib/TileLayer.AGSDynamic.js',
+			'//' + maplibPath + '/js/maplib/TileLayer.AGSTiled.js',
+			'//' + maplibPath + '/js/jquery/jquery.getCSS.min.js',
+			'//ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js',
+			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js',
+			'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js',
+			'//maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts',
 			"//cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js",
 			"//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.7/jquery.placeholder.min.js"
 		].reverse();
@@ -109,14 +109,14 @@ var loadScripts = function(aScripts, callback) {
 
 maplib.finishScripts = function() {
 	var loadCSS = function() {
-		var css = 'http://' + maplibPath + '/css/leaflet/leaflet.css';
+		var css = '//' + maplibPath + '/css/leaflet/leaflet.css';
 		// ie seems to not time this right
 		if (!jQuery.getCSS) {
 			window.setTimeout(loadCSS, 200);
 			return;
 		}
 
-        jQuery.getCSS('http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css', function () {});
+        jQuery.getCSS('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css', function () {});
 		jQuery.getCSS(css, function() {
 //			if (jQuery.browser.msie && jQuery.browser.version < 9) {
 //				jQuery.getCSS('http://' + maplibPath + '/css/leaflet/leaflet.ie.css', function() {
@@ -136,7 +136,7 @@ maplib.finishScripts = function() {
 //			}
 		});
 	};
-	loadScripts(['http://' + maplibPath + '/js/maplib/Google.js'], loadCSS);
+	loadScripts(['//' + maplibPath + '/js/maplib/Google.js'], loadCSS);
 
 	var setupMap = function() {
 		var initLatLng = new L.LatLng(42.38, -71.11);
