@@ -599,7 +599,7 @@ maplib.finishScripts = function() {
 							}
 							var extent = maplib.getESRIFeatureExtent(resp.features[0].geometry);
 							maplib.map.panTo(new L.LatLng(extent.center.y, extent.center.x));
-							maplib.map.setZoom(18);
+							maplib.map.setZoom(maplib.config.search.searchZoom || 18);
 							if (overlayConfig.queryTemplate) {
 								maplib.showSingleLayerPopup(resp, overlayConfig, null);
 							}
