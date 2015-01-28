@@ -1,0 +1,23 @@
+diff --git a/src/control/Control.Layers.js b/src/control/Control.Layers.js
+index 6fc2cbc..205b238 100644
+--- a/src/control/Control.Layers.js
++++ b/src/control/Control.Layers.js
+@@ -61,6 +61,10 @@ L.Control.Layers = L.Control.extend({
+ 		return this;
+ 	},
+ 
++	setLegendUrl: function(legendUrl) {
++		$(this._legendContainer).html('<img src="' + legendUrl + '" />');
++	},
++
+ 	_initLayout: function () {
+ 		var className = 'leaflet-control-layers',
+ 		    container = this._container = L.DomUtil.create('div', className);
+@@ -110,6 +114,7 @@ L.Control.Layers = L.Control.extend({
+ 		this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
+ 		this._separator = L.DomUtil.create('div', className + '-separator', form);
+ 		this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
++		this._legendContainer = L.DomUtil.create('div', className + '-legend', form);
+ 
+ 		container.appendChild(form);
+ 	},
