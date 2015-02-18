@@ -89,10 +89,14 @@ jQuery(document).ready(function() {
 			'//ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js',
 			//'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js',
-			'//maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts',
 			"//cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js",
-			"//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.7/jquery.placeholder.min.js"
-		].reverse();
+			"//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.7/jquery.placeholder.min.js",
+			'//maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts'
+		];
+		if (!$.browser) {
+			aScripts.splice(0,0,"//" + maplibPath + "/js/jquery.browser.js");
+		}
+		aScripts = aScripts.reverse();
 		loadScripts(aScripts);
 	}
 
@@ -179,7 +183,7 @@ maplib.finishScripts = function() {
 				"f" : "pjson",
 				"where" : searchField + " like '" + permaQuery + "'"
 			};
-			
+
 			jQuery.ajax({
 				"url": maplib.config.search.queryURL,
 				"dataType":"jsonp",
