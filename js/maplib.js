@@ -31,6 +31,8 @@ jQuery.extend({
 
 maplib = window.maplib || {};
 
+mapib.version = "1.5.0";
+
 // init the search icon
 maplib.searchIcon = null;
 
