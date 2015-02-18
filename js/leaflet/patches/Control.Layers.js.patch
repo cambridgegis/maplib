@@ -1,5 +1,5 @@
 diff --git a/src/control/Control.Layers.js b/src/control/Control.Layers.js
-index 6fc2cbc..205b238 100644
+index 6fc2cbc..478e111 100644
 --- a/src/control/Control.Layers.js
 +++ b/src/control/Control.Layers.js
 @@ -61,6 +61,10 @@ L.Control.Layers = L.Control.extend({
@@ -20,4 +20,14 @@ index 6fc2cbc..205b238 100644
 +		this._legendContainer = L.DomUtil.create('div', className + '-legend', form);
  
  		container.appendChild(form);
+ 	},
+@@ -209,7 +214,8 @@ L.Control.Layers = L.Control.extend({
+ 		label.appendChild(name);
+ 
+ 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
+-		container.appendChild(label);
++		//container.appendChild(label);
++		container.insertBefore(label, container.childNodes[0]);
+ 
+ 		return label;
  	},
