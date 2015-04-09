@@ -14,6 +14,8 @@ then
 3. apply maplib custom patch
 	$ git apply ../path/to/maplib/js/leaflet/Control.Layer.js.patch
 
+	Note: On Windows you may need to add "--ignore-space-change --ignore-whitespace" depending on your core.autocrlf setting.
+
 4. build leaflet distro from git repo
 	$ npm install jshint uglify-js
 	$ jake build[1vvvvvvv,custom]
