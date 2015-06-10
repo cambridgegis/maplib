@@ -72,8 +72,7 @@ var nStartTime;
 var nEndTime;
 window.console = window.console || {"log": function() {}};
 
-//var maplibPath = '__PUT_YOUR_MAPLIB_HTTP_PATH_PREFIX_HERE__';
-var maplibPath = 'localhost/~sfarber/maplib/';
+var maplibPath = '__PUT_YOUR_MAPLIB_HTTP_PATH_PREFIX_HERE__';
 
 jQuery(document).ready(function() {
 
