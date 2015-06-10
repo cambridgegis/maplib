@@ -31,7 +31,7 @@ jQuery.extend({
 
 maplib = window.maplib || {};
 
-mapib.version = "1.5.0";
+maplib.version = "1.5.0";
 
 // init the search icon
 maplib.searchIcon = null;
@@ -72,7 +72,8 @@ var nStartTime;
 var nEndTime;
 window.console = window.console || {"log": function() {}};
 
-var maplibPath = '__PUT_YOUR_MAPLIB_HTTP_PATH_PREFIX_HERE__';
+//var maplibPath = '__PUT_YOUR_MAPLIB_HTTP_PATH_PREFIX_HERE__';
+var maplibPath = 'localhost/~sfarber/maplib/';
 
 jQuery(document).ready(function() {
 
@@ -331,6 +332,40 @@ maplib.finishScripts = function() {
 		};
 		maplib.drawLayersControl();
 
+		$('body').on("click","div.query-results-paginator .query-results-paginator-controls input", function(evt) {
+			var divPaginate = $(this).parents(".query-results-paginator");
+			divPaginate = $(divPaginate);
+			var active = parseInt(divPaginate.data("active-page"))
+			if ($(this).val() == "<") {
+				if (active === 0) {
+					// can't go back before 0
+					return;
+				} else {
+					$(divPaginate.children()[active]).hide();
+					$(divPaginate.children()[active - 1]).show();
+					divPaginate.data("active-page", active - 1);
+					divPaginate.find(".result-count").html(active);
+					$(this).next().prop("disabled", false);
+					if (active - 1 === 0) {
+						$(this).prop("disabled", true);
+					}
+				}
+			} else {
+				if (active === divPaginate.children().length - 2) {
+					// can't go past the end
+					return;
+				} else {
+					$(divPaginate.children()[active]).hide();
+					$(divPaginate.children()[active + 1]).show();
+					divPaginate.data("active-page", active + 1);
+					divPaginate.find(".result-count").html(active + 2);
+					$(this).prev().prop("disabled", false);
+					if (active + 1 === divPaginate.children().length - 2) {
+						$(this).prop("disabled", true);
+					}
+				}
+			}
+		});
 		var renderPopup = function(overlayConfig, features, evt) {
 
 			var width = 300;
@@ -349,10 +384,33 @@ maplib.finishScripts = function() {
 			var popup = new L.Popup( { maxWidth : width } );
 			popup.setLatLng(markerLatlng);
 			overlayConfig.queryTemplateDebug && console.log(features);
-			if (overlayConfig.queryTemplate[0] == '#') {
-				var content = jQuery.tmpl($(overlayConfig.queryTemplate), features);
+			var content;
+			if (overlayConfig.paginateQueryResults && features.length > 1) {
+				var divPaginate = $('<div class="query-results-paginator" data-active-page="0"></div>');
+				var isFirst = true;
+				$.each(features, function(idx, feature) {
+					var divFeature = $('<div class="query-result-page"></div>');
+					if (!isFirst) {
+						divFeature.hide();
+					} else {
+						isFirst = false;
+					}
+					if (overlayConfig.queryTemplate[0] == '#') {
+						var html = jQuery.tmpl($(overlayConfig.queryTemplate), feature);
+					} else {
+						var html = jQuery.tmpl(overlayConfig.queryTemplate, feature);
+					}
+					divFeature.html(html);
+					divPaginate.append(divFeature);
+				});
+				divPaginate.append('<div class="query-results-paginator-controls"><input type="button" value="<" disabled="disabled"/><input type="button" value=">" />&nbsp;&nbsp;<span class="result-count">1</span> of ' + features.length + '</div>');
+				content = divPaginate;
 			} else {
-				var content = jQuery.tmpl(overlayConfig.queryTemplate, features);
+				if (overlayConfig.queryTemplate[0] == '#') {
+					content = jQuery.tmpl($(overlayConfig.queryTemplate), features);
+				} else {
+					content = jQuery.tmpl(overlayConfig.queryTemplate, features);
+				}
 			}
 
 			popup.setContent("<div id='results' style='width: " + width + "px'></div>");

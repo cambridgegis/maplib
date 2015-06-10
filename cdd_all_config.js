@@ -52,7 +52,8 @@ maplib.config = {
 			queryTemplateDebug: true,
 			queryLayer: "0",
 			queryClickTolerance: 10,
-			queryMaxZoom: 13
+			queryMaxZoom: 13,
+			paginateQueryResults: true
 		},
 		{
 			type: "ags_dynamic",
