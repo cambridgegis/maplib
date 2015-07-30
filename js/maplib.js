@@ -632,7 +632,7 @@ maplib.finishScripts = function() {
 					var data = {
 						"outFields" : "*",
 						"f" : "pjson",
-						"outSR" : "4326",
+						"outSR" : "4326"
 					};
 					var searchField = maplib.config.search.searchField || 'search';
 					if (maplib.config.search.smartSearch && request.term.indexOf(" ") !== -1) {
