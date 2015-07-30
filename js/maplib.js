@@ -739,7 +739,7 @@ maplib.finishScripts = function() {
 							var extent = maplib.getESRIFeatureExtent(resp.features[0].geometry);
 							var centerLatLong = new L.LatLng(extent.center.y, extent.center.x);
 							maplib.map.panTo( centerLatLong );
-							maplib.map.setZoom(maplib.config.search.searchZoom || 18);
+							maplib.map.setZoom(permaZoom || maplib.config.search.searchZoom || 18);
 
 							// clear any previous search marker
 							maplib.clearSearchIcon();
@@ -760,7 +760,7 @@ maplib.finishScripts = function() {
 					var extent = maplib.getESRIFeatureExtent(feature.geometry);
 					var centerLatLong = new L.LatLng(extent.center.y, extent.center.x);
 					maplib.map.panTo( centerLatLong );
-					maplib.map.setZoom(maplib.config.search.searchZoom || 18);
+					maplib.map.setZoom(permaZoom || maplib.config.search.searchZoom || 18);
 
 					// clear any previous search marker
 					maplib.clearSearchIcon();
