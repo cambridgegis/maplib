@@ -402,7 +402,7 @@ maplib.finishScripts = function() {
 					divFeature.html(html);
 					divPaginate.append(divFeature);
 				});
-				divPaginate.append('<div class="query-results-paginator-controls"><input type="button" value="<" disabled="disabled"/><input type="button" value=">" />&nbsp;&nbsp;<span class="result-count">1</span> of ' + features.length + '</div>');
+				divPaginate.append('<div class="query-results-paginator-controls"><input type="button" value="<" style="display:inline-block" disabled="disabled"/><input type="button" value=">" style="display:inline-block" />&nbsp;&nbsp;<span class="result-count">1</span> of ' + features.length + '</div>');
 				content = divPaginate;
 			} else {
 				if (overlayConfig.queryTemplate[0] == '#') {
