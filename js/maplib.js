@@ -1,32 +1,30 @@
 jQuery.extend({
-   getScript: function(url, callback) {
-	  var head = document.getElementsByTagName("head")[0];
-	  var script = document.createElement("script");
-	  script.src = url;
+	getScript: function(url, callback) {
+		var head = document.getElementsByTagName("head")[0];
+		var script = document.createElement("script");
+		script.src = url;
 
-	  // Handle Script loading
-	  {
-		 var done = false;
+		// Handle Script loading
+		var done = false;
 
-		 // Attach handlers for all browsers
-		 script.onload = script.onreadystatechange = function(){
+		// Attach handlers for all browsers
+		script.onload = script.onreadystatechange = function(){
 			if ( !done && (!this.readyState ||
-				  this.readyState == "loaded" || this.readyState == "complete") ) {
-			   done = true;
-			   if (callback)
-				  callback();
+					this.readyState == "loaded" || this.readyState == "complete") ) {
+				done = true;
+				if (callback)
+					callback();
 
-			   // Handle memory leak in IE
-			   script.onload = script.onreadystatechange = null;
+				// Handle memory leak in IE
+				script.onload = script.onreadystatechange = null;
 			}
-		 };
-	  }
+		};
 
-	  head.appendChild(script);
+		head.appendChild(script);
 
-	  // We handle everything using the script element injection
-	  return undefined;
-   }
+		// We handle everything using the script element injection
+		return undefined;
+	}
 });
 
 maplib = window.maplib || {};
@@ -72,7 +70,7 @@ var nStartTime;
 var nEndTime;
 window.console = window.console || {"log": function() {}};
 
-var maplibPath = '__PUT_YOUR_MAPLIB_HTTP_PATH_PREFIX_HERE__';
+var maplibPath = 'localhost/~sfarber/maplib';
 
 jQuery(document).ready(function() {
 
@@ -84,6 +82,8 @@ jQuery(document).ready(function() {
 		jQuery('#message').html("loading leaflet map");
 		var aScripts = [
 			'//' + maplibPath + '/js/leaflet/leaflet-custom.js',
+			'//' + maplibPath + '/js/Leaflet.heat/dist/leaflet-heat.js',
+			'//' + maplibPath + '/js/Leaflet.markercluster/dist/leaflet.markercluster.js',
 			'//' + maplibPath + '/js/ImageOverlay.AGSLayer.js',
 			'//' + maplibPath + '/js/TileLayer.AGSDynamic.js',
 			'//' + maplibPath + '/js/TileLayer.AGSTiled.js',
@@ -120,7 +120,6 @@ var loadScripts = function(aScripts, callback) {
 
 maplib.finishScripts = function() {
 	var loadCSS = function() {
-		var css = '//' + maplibPath + '/css/leaflet.css';
 		// ie seems to not time this right
 		if (!jQuery.getCSS) {
 			window.setTimeout(loadCSS, 200);
@@ -128,7 +127,9 @@ maplib.finishScripts = function() {
 		}
 
 		jQuery.getCSS('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css', function () {});
-		jQuery.getCSS(css, function() {
+		jQuery.getCSS('//' + maplibPath + '/js/Leaflet.markercluster/dist/MarkerCluster.Default.css', function () {});
+		jQuery.getCSS('//' + maplibPath + '/js/Leaflet.markercluster/dist/MarkerCluster.css', function () {});
+		jQuery.getCSS('//' + maplibPath + '/css/leaflet.css', function() {
 //			if (jQuery.browser.msie && jQuery.browser.version < 9) {
 //				jQuery.getCSS('http://' + maplibPath + '/css/leaflet/leaflet.ie.css', function() {
 //					try {
@@ -259,7 +260,85 @@ maplib.finishScripts = function() {
 		deferredLayers = [];
 		jQuery.each(overlays, function(idx, overlayConfig) {
 
-			var layer = maplib.layer[overlayConfig.type].createLeafletLayer(overlayConfig);
+			if (overlayConfig.cluster) {
+				if (overlayConfig.type !== 'ags_dynamic') {
+					// non-dynamic layers not supported right now
+					console.log("Unable to create cluster layers out of anything but 'ags_dynamic' layers.  Layer " + overlayConfig.title + " has type " + overlayConfig.type);
+					return;
+				}
+				// create this layer as a cluster layer
+				var markerGroup = L.markerClusterGroup();
+				var features = [];
+				var featureLoadComplete = $.Deferred();
+				$.ajax({
+					"url" : overlayConfig.serviceurl + "/MapServer/" + overlayConfig.cluster.queryLayer  + "/query",
+					"dataType" : "jsonp",
+					"data" : {
+						"where": "1 = 1",
+						"returnIdsOnly": true,
+						"f" : "json"
+					}
+				}).done(function(data, status, xhr) {
+					var count = data.objectIds.length;
+					overlayConfig.cluster.count = count;
+					var offset = 0;
+					var buffer = 250;
+					var fieldname = data.objectIdFieldName;
+					overlayConfig.cluster.objectIdFieldName = data.objectIdFieldName;
+					var loadFeatures = function() {
+						var next = offset + buffer;
+						if (next > count) {
+							next = count;
+						}
+						$.ajax({
+							"url" : overlayConfig.serviceurl + "/MapServer/" + overlayConfig.cluster.queryLayer  + "/query",
+							"dataType" : "jsonp",
+							"method" : "POST",
+							"data" : {
+								"where": fieldname + " in (" + data.objectIds.slice(offset,next).join(",") + ")",
+								"inSR" : "",
+								"outFields": fieldname,
+								"returnGeometry" : "true",
+								"outSR" : "4326",
+								"f" : "json"
+							}
+						}).done(function(data, status, xhr) {
+							features = features.concat(data.features);
+							if (features.length < count) {
+								offset += data.features.length;
+								window.setTimeout(loadFeatures, 10);
+							} else {
+								featureLoadComplete.resolve();
+							}
+						});
+					};
+					loadFeatures();
+				});
+				
+				featureLoadComplete.done(function() {
+					var markers = [];
+					$.each(features, function(idx, f) {
+						var marker = L.marker(new L.LatLng(f.geometry.y, f.geometry.x), {
+							title: f.attributes[overlayConfig.cluster.objectIdFieldName],
+							icon: L.icon({
+								iconUrl: overlayConfig.cluster.markerIcon || 'http://cdn.leafletjs.com/leaflet-0.7/images/marker-icon.png',
+								iconSize: [25,41],
+								iconAnchor: [12,0],
+								shadowUrl: overlayConfig.cluster.shadowIcon || 'http://cdn.leafletjs.com/leaflet-0.7/images/marker-shadow.png',
+								shadowSize: [41,41],
+								shadowAnchor:[12,0]
+							})
+						});
+						marker.bindPopup(f.attributes[overlayConfig.cluster.objectIdFieldName]);
+						markers.push(marker);
+					});
+					markerGroup.addLayers(markers);
+					maplib.map.addLayer(markerGroup);
+				});
+
+			} else {
+				var layer = maplib.layer[overlayConfig.type].createLeafletLayer(overlayConfig);
+			}
 			if (overlayConfig.startsVisible) {
 				overlayConfig.type !== 'geojson' && map.addLayer(layer);
 				overlayConfig.type == 'geojson' && layer.done(function(lyr) {
@@ -271,7 +350,7 @@ maplib.finishScripts = function() {
 			}
 
 			// GEOJSON attribution - Fix for issue #16
-	 		if( overlayConfig.type === 'geojson' && overlayConfig.attribution ) {
+				if( overlayConfig.type === 'geojson' && overlayConfig.attribution ) {
 				// create new geoJson object
 				var gj = L.geoJson();
 				// define the getAttribution function
@@ -374,7 +453,7 @@ maplib.finishScripts = function() {
 
 			var popupContent = '';
 			if (overlayConfig._layer.metadata.geometryType == 'esriGeometryPoint') {
-				var extent = maplib.getESRIFeatureExtent(features[0].geometry);			
+				var extent = maplib.getESRIFeatureExtent(features[0].geometry);
 				var markerLatlng = new L.LatLng(extent.center.y,extent.center.x);
 			} else {
 				var clickPoint = new L.Point(evt.layerPoint.x,evt.layerPoint.y);
@@ -426,7 +505,7 @@ maplib.finishScripts = function() {
 			jQuery.each(queryCfgs, function(idx, overlayConfig) {
 				if (overlayConfig.queryMaxZoom && (map.getZoom() < overlayConfig.queryMaxZoom)) {
 					// map zoom level is higher than the max zoom level that this layer allows
-					 return;
+						return;
 				}
 
 				// check whether the layer is actually in the map right now
@@ -582,7 +661,7 @@ maplib.finishScripts = function() {
 		if (bIdentifyEnabled) {
 			map.on('click',handleIdentifyClick);
 		}
-		
+
 		// search logic goes here.
 		if (maplib.config.search) {
 			placeholder = (maplib.config.search.placeholder) ? maplib.config.search.placeholder : "Search";
@@ -595,19 +674,19 @@ maplib.finishScripts = function() {
 			}, (typeof maplib.config.search.style != "undefined" ? maplib.config.search.style : {}) );
 			$('.search_container_autocomplete').placeholder();
 
- 			// set up jQuery UI Position structure from config
- 			var searchPositionConfig = maplib.config.search.position;
- 			if (typeof searchPositionConfig =="undefined" ) {
- 				searchPositionConfig = {};
- 			}
-			
- 			if (typeof searchPositionConfig.of =="undefined" ) {
- 				searchPositionConfig.of = "#map";
- 			}
+			// set up jQuery UI Position structure from config
+			var searchPositionConfig = maplib.config.search.position;
+			if (typeof searchPositionConfig =="undefined" ) {
+				searchPositionConfig = {};
+			}
 
- 			if (typeof searchPositionConfig.at == "undefined" && typeof searchPositionConfig.my != "undefined" ) {
- 				searchPositionConfig.at = searchPositionConfig.my;
- 			}	
+			if (typeof searchPositionConfig.of =="undefined" ) {
+				searchPositionConfig.of = "#map";
+			}
+
+			if (typeof searchPositionConfig.at == "undefined" && typeof searchPositionConfig.my != "undefined" ) {
+				searchPositionConfig.at = searchPositionConfig.my;
+			}
 
 			searchContainerFragment.find('.search_container_autocomplete')
 				.css(searchStyle)
@@ -647,7 +726,7 @@ maplib.finishScripts = function() {
 					} else {
 						data.where = searchField + " like '%"+request.term+"%'";
 					}
-					
+
 					$.ajax({
 						"url": maplib.config.search.queryURL,
 						"dataType":"jsonp",
@@ -691,7 +770,7 @@ maplib.finishScripts = function() {
 			// attach the change event handler to the search box
 			searchContainerFragment.keyup( 
 				function(){ 
-					
+
 					// check for empty and clear any search pins
 					if( $( 'input', searchContainerFragment ).val() === '' ){
 						maplib.clearSearchIcon();
@@ -705,15 +784,15 @@ maplib.finishScripts = function() {
 				{
 					"z-index":"6",
 					"width": searchStyle.width
- 				}
- 			);
+				}
+			);
 
 			// position the search box
-			searchContainerFragment.position( searchPositionConfig );	
+			searchContainerFragment.position( searchPositionConfig );
 			L.DomEvent.disableClickPropagation(jQuery(".search_container_autocomplete")[0]);
 
 			maplib.search = {};
-			maplib.search.searchContainer = searchContainerFragment;			
+			maplib.search.searchContainer = searchContainerFragment;
 			maplib.search.drawSingleSearchResult = function(feature) {
 				var detailSearchTriggered = false;
 				$.each(maplib.config.overlays, function(idx, item) {
@@ -771,7 +850,7 @@ maplib.finishScripts = function() {
 					}
 				}
 			};
-			
+
 		}
 
 		$('body').append($('<div id="maplib-permalink-popup"></div>'));
@@ -827,7 +906,7 @@ maplib.layer = {
 	},
 	ags_dynamic: {
 		createLeafletLayer: function(config) {
-			
+
 			var layer = new L.TileLayer.AGSDynamic(
 				config.serviceurl + "/MapServer",
 				{
