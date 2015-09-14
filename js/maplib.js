@@ -82,8 +82,8 @@ jQuery(document).ready(function() {
 		jQuery('#message').html("loading leaflet map");
 		var aScripts = [
 			'//' + maplibPath + '/js/leaflet/leaflet-custom.js',
-			'//' + maplibPath + '/js/Leaflet.heat/dist/leaflet-heat.js',
-			'//' + maplibPath + '/js/Leaflet.markercluster/dist/leaflet.markercluster.js',
+			'//' + maplibPath + '/externals/Leaflet.heat/dist/leaflet-heat.js',
+			'//' + maplibPath + '/externals/Leaflet.markercluster/dist/leaflet.markercluster.js',
 			'//' + maplibPath + '/js/ImageOverlay.AGSLayer.js',
 			'//' + maplibPath + '/js/TileLayer.AGSDynamic.js',
 			'//' + maplibPath + '/js/TileLayer.AGSTiled.js',
@@ -127,8 +127,8 @@ maplib.finishScripts = function() {
 		}
 
 		jQuery.getCSS('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css', function () {});
-		jQuery.getCSS('//' + maplibPath + '/js/Leaflet.markercluster/dist/MarkerCluster.Default.css', function () {});
-		jQuery.getCSS('//' + maplibPath + '/js/Leaflet.markercluster/dist/MarkerCluster.css', function () {});
+		jQuery.getCSS('//' + maplibPath + '/externals/Leaflet.markercluster/dist/MarkerCluster.Default.css', function () {});
+		jQuery.getCSS('//' + maplibPath + '/externals/Leaflet.markercluster/dist/MarkerCluster.css', function () {});
 		jQuery.getCSS('//' + maplibPath + '/css/leaflet.css', function() {
 //			if (jQuery.browser.msie && jQuery.browser.version < 9) {
 //				jQuery.getCSS('http://' + maplibPath + '/css/leaflet/leaflet.ie.css', function() {
