@@ -499,3 +499,7 @@
                 padding:0;
                 font-size:14px;
 }
+/* Added to fix conflict with http://www.cambridgema.gov/Layouts/Mobile/_resources/css/global-mobile.css  for Mobile layouts. */
+.leaflet-tile {
+	max-height: none;
+}
