@@ -1,0 +1,15 @@
+[submodule "externals/Leaflet.heat"]
+	path = externals/Leaflet.heat
+	url = https://github.com/Leaflet/Leaflet.heat
+[submodule "external/Leaflet.markercluster"]
+	path = external/Leaflet.markercluster
+	url = https://github.com/Leaflet/Leaflet.markercluster
+[submodule "external/Leaflet"]
+	path = external/Leaflet
+	url = https://github.com/Leaflet/Leaflet
+[submodule "externals/Leaflet"]
+	path = externals/Leaflet
+	url = https://github.com/Leaflet/Leaflet
+[submodule "externals/Leaflet.markercluster"]
+	path = externals/Leaflet.markercluster
+	url = https://github.com/Leaflet/Leaflet.markercluster
