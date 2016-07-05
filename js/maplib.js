@@ -65,7 +65,7 @@ maplib.permaLink = function() {
 };
 
 (function() {
- 
+
 var nStartTime;
 var nEndTime;
 window.console = window.console || {"log": function() {}};
@@ -314,7 +314,7 @@ maplib.finishScripts = function() {
 					};
 					loadFeatures();
 				});
-				
+
 				featureLoadComplete.done(function() {
 					var markers = [];
 					$.each(features, function(idx, f) {
@@ -338,49 +338,50 @@ maplib.finishScripts = function() {
 
 			} else {
 				var layer = maplib.layer[overlayConfig.type].createLeafletLayer(overlayConfig);
-			}
-			if (overlayConfig.startsVisible) {
-				overlayConfig.type !== 'geojson' && map.addLayer(layer);
-				overlayConfig.type == 'geojson' && layer.done(function(lyr) {
-					maplib.geojsonlayer = lyr;
-					map.addLayer(lyr);
-					ovl[overlayConfig.title] = lyr;
-					maplib.drawLayersControl();
-				});
-			}
 
-			// GEOJSON attribution - Fix for issue #16
-				if( overlayConfig.type === 'geojson' && overlayConfig.attribution ) {
-				// create new geoJson object
-				var gj = L.geoJson();
-				// define the getAttribution function
-				gj.getAttribution = function() { return overlayConfig.attribution; };
-				// add it to the map
-				gj.addTo(map);
-				// record the layer name
-				gjAttributionLayers.push( { title:overlayConfig.title,layer:gj } );
-			}
-
-			if (!overlayConfig.notInLayerPicker) {
-				ovl[overlayConfig.title] = layer;
-			}
-			if (overlayConfig.queryTemplate) {
-				if (overlayConfig.type !== 'geojson') {
-					bIdentifyEnabled = true;
-					overlayConfig._layer = layer;
-					queryCfgs.push(overlayConfig);
-				} else {
-					layer.done(function(lyr) {
-						$.each(lyr._layers, function(idx, sublayer) {
-							overlayConfig.queryTemplateDebug && console.log(sublayer._feature);
-							if (overlayConfig.queryTemplate[0] == '#') {
-								var content = jQuery.tmpl($(overlayConfig.queryTemplate), sublayer.feature);
-							} else {
-								var content = jQuery.tmpl(overlayConfig.queryTemplate, sublayer.feature);
-							}
-							sublayer.bindPopup($("<span></span>").append(content).html());
-						});
+				if (overlayConfig.startsVisible) {
+					overlayConfig.type !== 'geojson' && map.addLayer(layer);
+					overlayConfig.type == 'geojson' && layer.done(function(lyr) {
+						maplib.geojsonlayer = lyr;
+						map.addLayer(lyr);
+						ovl[overlayConfig.title] = lyr;
+						maplib.drawLayersControl();
 					});
+				}
+
+				// GEOJSON attribution - Fix for issue #16
+					if( overlayConfig.type === 'geojson' && overlayConfig.attribution ) {
+					// create new geoJson object
+					var gj = L.geoJson();
+					// define the getAttribution function
+					gj.getAttribution = function() { return overlayConfig.attribution; };
+					// add it to the map
+					gj.addTo(map);
+					// record the layer name
+					gjAttributionLayers.push( { title:overlayConfig.title,layer:gj } );
+				}
+
+				if (!overlayConfig.notInLayerPicker) {
+					ovl[overlayConfig.title] = layer;
+				}
+				if (overlayConfig.queryTemplate) {
+					if (overlayConfig.type !== 'geojson') {
+						bIdentifyEnabled = true;
+						overlayConfig._layer = layer;
+						queryCfgs.push(overlayConfig);
+					} else {
+						layer.done(function(lyr) {
+							$.each(lyr._layers, function(idx, sublayer) {
+								overlayConfig.queryTemplateDebug && console.log(sublayer._feature);
+								if (overlayConfig.queryTemplate[0] == '#') {
+									var content = jQuery.tmpl($(overlayConfig.queryTemplate), sublayer.feature);
+								} else {
+									var content = jQuery.tmpl(overlayConfig.queryTemplate, sublayer.feature);
+								}
+								sublayer.bindPopup($("<span></span>").append(content).html());
+							});
+						});
+					}
 				}
 			}
 		});
@@ -768,8 +769,8 @@ maplib.finishScripts = function() {
 			jQuery(".leaflet-control-container").eq(0).append(searchContainerFragment);
 
 			// attach the change event handler to the search box
-			searchContainerFragment.keyup( 
-				function(){ 
+			searchContainerFragment.keyup(
+				function(){
 
 					// check for empty and clear any search pins
 					if( $( 'input', searchContainerFragment ).val() === '' ){
