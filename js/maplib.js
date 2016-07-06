@@ -818,7 +818,6 @@ maplib.finishScripts = function() {
 
 							var extent = maplib.getESRIFeatureExtent(resp.features[0].geometry);
 							var centerLatLong = new L.LatLng(extent.center.y, extent.center.x);
-							maplib.map.panTo( centerLatLong );
 							maplib.map.setZoom(permaZoom || maplib.config.search.searchZoom || 18);
 
 							// clear any previous search marker
@@ -833,13 +832,14 @@ maplib.finishScripts = function() {
 							if (overlayConfig.queryTemplate) {
 								maplib.showSingleLayerPopup(resp, overlayConfig, null);
 							}
+
+							maplib.map.panTo( centerLatLong );
 						});
 					}
 				});
 				if (!detailSearchTriggered && feature.geometry) {
 					var extent = maplib.getESRIFeatureExtent(feature.geometry);
 					var centerLatLong = new L.LatLng(extent.center.y, extent.center.x);
-					maplib.map.panTo( centerLatLong );
 					maplib.map.setZoom(permaZoom || maplib.config.search.searchZoom || 18);
 
 					// clear any previous search marker
@@ -849,6 +849,8 @@ maplib.finishScripts = function() {
 					if( maplib.config.search && maplib.config.search.icon ) {
 						maplib.searchIcon = L.marker( centerLatLong, {icon:L.icon( maplib.config.search.icon )} ).addTo( maplib.map );
 					}
+
+					maplib.map.panTo( centerLatLong );
 				}
 			};
 
