@@ -93,13 +93,13 @@ jQuery(document).ready(function() {
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js',
 			"//cdnjs.cloudflare.com/ajax/libs/jquery.ba-bbq/1.2.1/jquery.ba-bbq.min.js",
 			"//cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.0.7/jquery.placeholder.min.js",
-			'//maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts'
+			//'//maps.google.com/maps/api/js?key=AIzaSyBVhjB9GjNPsQG6KKQ6-bPpiFX4oKfcKMc&sensor=false&callback=maplib.finishScripts'
 		];
 		if (!$.browser) {
 			aScripts.splice(0,0,"//" + maplibPath + "/js/jquery.browser.js");
 		}
 		aScripts = aScripts.reverse();
-		loadScripts(aScripts);
+		loadScripts(aScripts, maplib.finishScripts);
 	}
 
 	triggerLeaflet();
@@ -148,7 +148,8 @@ maplib.finishScripts = function() {
 //			}
 		});
 	};
-	loadScripts(['//' + maplibPath + '/js/Google.js'], loadCSS);
+	loadCSS();
+	//loadScripts(['//' + maplibPath + '/js/Google.js'], loadCSS);
 
 	var setupMap = function() {
 
@@ -882,18 +883,18 @@ maplib.clearSearchIcon = function(){
 };
 
 maplib.layer = {
-	googlestreets: {
-		createLeafletLayer: function(config) {
-			var layer = new L.Google('ROADMAP');
-			return layer;
-		}
-	},
-	googlehybrid: {
-		createLeafletLayer: function(config) {
-			var layer = new L.Google('HYBRID');
-			return layer;
-		}
-	},
+	//googlestreets: {
+	//	createLeafletLayer: function(config) {
+	//		var layer = new L.Google('ROADMAP');
+	//		return layer;
+	//	}
+	//},
+	//googlehybrid: {
+	//	createLeafletLayer: function(config) {
+	//		var layer = new L.Google('HYBRID');
+	//		return layer;
+	//	}
+	//},
 	ags_tiled: {
 		createLeafletLayer: function(config) {
 			var layerUrl = config.serviceurl + '/MapServer/tile/{z}/{y}/{x}';
