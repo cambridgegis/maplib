@@ -84,6 +84,7 @@ jQuery(document).ready(function() {
 			'//' + maplibPath + '/js/leaflet/leaflet-custom.js',
 			'//' + maplibPath + '/externals/Leaflet.heat/dist/leaflet-heat.js',
 			'//' + maplibPath + '/externals/Leaflet.markercluster/dist/leaflet.markercluster.js',
+			'//' + maplibPath + '/externals/leaflet-locatecontrol/dist/L.Control.Locate.min.js',
 			'//' + maplibPath + '/js/ImageOverlay.AGSLayer.js',
 			'//' + maplibPath + '/js/TileLayer.AGSDynamic.js',
 			'//' + maplibPath + '/js/TileLayer.AGSTiled.js',
@@ -127,8 +128,10 @@ maplib.finishScripts = function() {
 		}
 
 		jQuery.getCSS('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css', function () {});
+		jQuery.getCSS('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', function () {});
 		jQuery.getCSS('//' + maplibPath + '/externals/Leaflet.markercluster/dist/MarkerCluster.Default.css', function () {});
 		jQuery.getCSS('//' + maplibPath + '/externals/Leaflet.markercluster/dist/MarkerCluster.css', function () {});
+		jQuery.getCSS('//' + maplibPath + '/externals/leaflet-locatecontrol/dist/L.Control.Locate.min.css', function () {});
 		jQuery.getCSS('//' + maplibPath + '/css/leaflet.css', function() {
 //			if (jQuery.browser.msie && jQuery.browser.version < 9) {
 //				jQuery.getCSS('http://' + maplibPath + '/css/leaflet/leaflet.ie.css', function() {
@@ -219,6 +222,16 @@ maplib.finishScripts = function() {
 		map.addLayer(firstLayer);
 		if (baseCount === 1) {
 			baselyrs = {};
+		}
+
+		// create geolocation control
+		var lc = L.control.locate();
+		if (maplib.config.enableGeolocation) {
+			lc.addTo(map);
+
+			if (maplib.config.geolocateOnLoad) {
+				lc.start();
+			}
 		}
 
 		var overlays = [];

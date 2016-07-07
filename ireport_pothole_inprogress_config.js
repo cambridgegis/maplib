@@ -7,6 +7,8 @@ maplib.config = {
 	border: '1px solid #aaa',
 	height: 500,
 	width: 700,
+	enableGeolocation: false,
+	geolocateOnLoad: false,
 	baselayers: [
 		{
 			type: "ags_tiled",

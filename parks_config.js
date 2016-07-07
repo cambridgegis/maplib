@@ -4,6 +4,8 @@ maplib.config = {
 	border: '1px solid #aaa',
 	height: 500,
 	width: 700,
+	enableGeolocation: false,
+	geolocateOnLoad: false,
 	baselayers: [
 		{
 			type: "ags_tiled",
@@ -33,87 +35,87 @@ maplib.config = {
 				 			"<li><a href='#tab-4'>More Info</a></li>" +
 				 		   "</ul>" +
 						   "<div id='tab-1'>" +
-							 "<table style='border-style:none'><tr><td style='border-style:none'>" + 
+							 "<table style='border-style:none'><tr><td style='border-style:none'>" +
 							 "{{if attributes['JOIN_ID'] == 154 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/" + "cambridgecommon_154" + "_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/" + "cambridgecommon_154" + "_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 49 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/" + "reverendwilliams_049" + "_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/" + "reverendwilliams_049" + "_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 266 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/ahern_266_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/ahern_266_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 377 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/alberico_377_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/alberico_377_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 133 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/alden_133_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/alden_133_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 80 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/bergin_080_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/bergin_080_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 154 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/cambridgecommon_154_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/cambridgecommon_154_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 250 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/centanniway_250_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/centanniway_250_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 289 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/charlespark_289_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/charlespark_289_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 308 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/clementmorgan_308_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/clementmorgan_308_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 281 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/costalopeztaylor_281_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/costalopeztaylor_281_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 366 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/dana_366_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/dana_366_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 388 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/davidnunes_388_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/davidnunes_388_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 230 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/donnelly_230_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/donnelly_230_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 244 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/elmhampshire_244_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/elmhampshire_244_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 165 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/flagstaff_165_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/flagstaff_165_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 283 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/franklin_283_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/franklin_283_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 304 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/frontpark_304_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/frontpark_304_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 394 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/fulmore_394_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/fulmore_394_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 209 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/gannettwarrenpals_209_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/gannettwarrenpals_209_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 200 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/goldstarmotherspark_200_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/goldstarmotherspark_200_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 278 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/hurley_278_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/hurley_278_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 145 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/larchroad_145_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/larchroad_145_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 253 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/lechmerecanal_253_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/lechmerecanal_253_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 370 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/lopezstreet_370_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/lopezstreet_370_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 176 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/lowellschool_176_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/lowellschool_176_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 202 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/mapleave_202_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/mapleave_202_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 287 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/marketstreet_287_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/marketstreet_287_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 419 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/newriverside_419_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/newriverside_419_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 238 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/paine_238_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/paine_238_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 324 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/pinestreet_324_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/pinestreet_324_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 115 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/raymond_115_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/raymond_115_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 49 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/reverendwilliams_49_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/reverendwilliams_49_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 346 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/riversidepress_346_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/riversidepress_346_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 130 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/sacramento_130_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/sacramento_130_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 272 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/sennott_272_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/sennott_272_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 242 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/silva_242_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/silva_242_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 301 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/sixthstwalkway_301_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/sixthstwalkway_301_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 286 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/squirrel_286_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/squirrel_286_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{else attributes['JOIN_ID'] == 251 }}" +
-							   "<img src='http://gis.cambridgema.gov/Parks/wilderlee_251_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" + 
+							   "<img src='http://gis.cambridgema.gov/Parks/wilderlee_251_1.jpg' style='height:75px; width:100px;' alt='' vspace='5' hspace='5'/></td>" +
 							 "{{/if}}" +
 							 "<td style='border-style:none'>" +
 			/*
@@ -151,45 +153,45 @@ maplib.config = {
 							 "{{/if}}" +
 							 "</b><br />" +
 							 "{{if attributes['Location'] != null }}" +
-								"<b>${attributes['Location']}</b><br />" + 
+								"<b>${attributes['Location']}</b><br />" +
 							 "{{/if}}" +
 							 "{{if attributes['Hours'] != null }}" +
-								"Hours: <b>${attributes['Hours']}</b><br />" + 
+								"Hours: <b>${attributes['Hours']}</b><br />" +
 							 "{{/if}}" +
 							 "</td></tr></table>" +
 						   "</div>" +
-						   "<div id='tab-2'>" + 
+						   "<div id='tab-2'>" +
 							"{{if attributes['KidPlay'] != null && attributes['Athletics'] == null}}" +
-							   "Activities: <b>${attributes['KidPlay']}</b><br />" + 
+							   "Activities: <b>${attributes['KidPlay']}</b><br />" +
 							"{{else attributes['KidPlay'] != null && attributes['Athletics'] != null}}" +
-							   "Activities: <b>${attributes['KidPlay']}, ${attributes['Athletics']}</b><br />" + 
-							"{{else attributes['Athletics'] != null }}" + 
-							   "Activities: <b>${attributes['Athletics']}</b><br />" + 
+							   "Activities: <b>${attributes['KidPlay']}, ${attributes['Athletics']}</b><br />" +
+							"{{else attributes['Athletics'] != null }}" +
+							   "Activities: <b>${attributes['Athletics']}</b><br />" +
 							"{{/if}}" +
 							"{{if attributes['CommunityGardenPlots'] == 'Yes' }}" +
-								"Community Garden Plots: <b>Yes</b><br />" + 
+								"Community Garden Plots: <b>Yes</b><br />" +
 							"{{/if}}" +
 							"{{if attributes['OffLeashDogUse'] != null}}" +
-							 "Off Leash Dog Use: <b>${attributes['OffLeashDogUse']}</b><br />" + 
+							 "Off Leash Dog Use: <b>${attributes['OffLeashDogUse']}</b><br />" +
 							"{{/if}}" +
 						   "</div>" +
 						   "<div id='tab-3'>" +
 							 "Managed By: <b>${attributes['ManagedBy']}</b><br />" +
-							 "Information: " + 
+							 "Information: " +
 							 "{{if  attributes['InformationWeb'] != null}}" +
 							   "<a href='http://" + "${attributes['InformationWeb']}" + "' target='_blank'><b>${attributes['Information']}</a></b><br />" +
 							 "{{else}}" +
 							   "<b>${attributes['Information']}</b><br />" +
 							 "{{/if}}" +
 							 "Event Permits: <b>${attributes['EventPermits']}</b><br />" +
-							 "Field Permits: " + 
+							 "Field Permits: " +
 							 "{{if  attributes['FieldPermitsWeb'] != null}}" +
 							   "<a href='http://" + "${attributes['FieldPermitsWeb']}" + "' target='_blank'><b>${attributes['FieldPermits']}</a></b><br />" +
 							 "{{else}}" +
 							   "<b>${attributes['FieldPermits']}</b><br />" +
 							 "{{/if}}" +
 							 "{{if attributes['CommunityGardenPlots'] == 'Yes' }}" +
-							  "Community Gardens: " + 
+							  "Community Gardens: " +
 							  "{{if  attributes['CommunityGardensWeb'] != null}}" +
 								"<a href='http://" + "${attributes['CommunityGardensWeb']}" + "' target='_blank'><b>${attributes['CommunityGardensPhone']}</a></b><br />" +
 							  "{{else}}" +
@@ -197,7 +199,7 @@ maplib.config = {
 							  "{{/if}}" +
 							 "{{/if}}" +
 							 "{{if  attributes['OffLeashUsePhone'] != null}}" +
-							  "Off Leash Dog Use: " + 
+							  "Off Leash Dog Use: " +
 							  "{{if  attributes['OffLeashUseWeb'] != null}}" +
 								"<a href='http://" + "${attributes['OffLeashUseWeb']}" + "' target='_blank'><b>${attributes['OffLeashUsePhone']}</a></b><br />" +
 							  "{{else}}" +
@@ -205,7 +207,7 @@ maplib.config = {
 							  "{{/if}}" +
 							 "{{/if}}" +
 						   "</div>" +
-						   "<div id='tab-4'>" + 
+						   "<div id='tab-4'>" +
 							 "{{if attributes['Acres'] == 1}}" +
 							   "Area: <b>${attributes['Acres']} acre</b><br />" +
 							 "{{else}}" +

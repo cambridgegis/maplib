@@ -5,6 +5,8 @@ maplib.config = {
 	border: '1px solid #aaa',
 	height: 500,
 	width: 700,
+	enableGeolocation: false,
+	geolocateOnLoad: false,
 	baselayers: [
 		{
 			type: "ags_tiled",
@@ -28,8 +30,8 @@ maplib.config = {
 			queryRelationshipOutFields: "*",
 			queryTemplate: "Permit Number: <b>${attributes.CaseID}</b><br />" +
                            "Address: <b>${attributes.ADDRESS}</b><br/>" +
-                           "Status: <b>${attributes.Status}</b><br/>" + 
-							"<div style='border: 1px solid #999; padding: 3px 3px 3px 10px; background-color: #eee'>Linked Documents:<br/>" + 
+                           "Status: <b>${attributes.Status}</b><br/>" +
+							"<div style='border: 1px solid #999; padding: 3px 3px 3px 10px; background-color: #eee'>Linked Documents:<br/>" +
 							"{{each relatedRecords}}<a target='_blank' href='http://gis.cambridgema.gov/CDD_Docs/${attributes.Document_Name}'>${attributes.Document_Type}</a><br/>{{/each}}</div>" +
                             "<a href=http://www.cambridgema.gov/CDD/#PB${attributes.CaseID} target='_blank'>More Information</a>",
 			queryTemplateDebug: true,
@@ -65,8 +67,8 @@ maplib.config = {
 			startsVisible: true,
 			queryOutFields: "ProjectName,Address,LEEDSystemVersionName,CertLevel",
 			queryTemplate: "Name: <b>${attributes.ProjectName}</b><br/>" +
-                           "Address: <b>${attributes.Address}</b><br/>" + 
-                           "Program: <b>${attributes.LEEDSystemVersionName}</b><br/>" + 
+                           "Address: <b>${attributes.Address}</b><br/>" +
+                           "Program: <b>${attributes.LEEDSystemVersionName}</b><br/>" +
 			               "Certification Level: <b>${attributes.CertLevel}</b>",
 			queryTemplateDebug: true,
 			queryLayer: "46",
@@ -82,7 +84,7 @@ maplib.config = {
 			layers: "show:50",
 			startsVisible: true,
 			queryOutFields: "*",
-			queryTemplate: "Name: <b>${attributes['NAME']}</b><br/>" + 
+			queryTemplate: "Name: <b>${attributes['NAME']}</b><br/>" +
 			               "Type: <b>" +
 			               "{{if attributes['FCODE'] == '1' }}" +
 			                  "City park or playground" +
@@ -106,8 +108,8 @@ maplib.config = {
 			                  "Other" +
 			               "{{/if}}" +
 			               "</b><br />" +
-			               "Location: <b>${attributes['cambridge.gisdata.CDD_ParkDetails.Location']}</b><br/>" + 
-			               "Neighborhood: <b>${attributes['cambridge.gisdata.CDD_ParkDetails.Neighborhood']}</b><br/>" + 
+			               "Location: <b>${attributes['cambridge.gisdata.CDD_ParkDetails.Location']}</b><br/>" +
+			               "Neighborhood: <b>${attributes['cambridge.gisdata.CDD_ParkDetails.Neighborhood']}</b><br/>" +
 			               "<hr />",
 			queryTemplateDebug: true,
 			queryLayer: "51",
@@ -124,7 +126,7 @@ maplib.config = {
 			startsVisible: true,
 			queryOutFields: "Project,ProjType,Webpage",
 			queryTemplate: "Project: <b>${attributes.Project}</b><br/>" +
-                           "Type: <b>${attributes.ProjType}</b><br/>" + 
+                           "Type: <b>${attributes.ProjType}</b><br/>" +
 			               "<a target='_blank' href=${attributes.Webpage}>More Information</a><hr />",
 			queryTemplateDebug: true,
 			queryLayer: "57",
@@ -140,7 +142,7 @@ maplib.config = {
 			layers: "show:71",
 			startsVisible: true,
 			queryOutFields: "*",
-            queryTemplate: "Name: <b>${attributes.DistName}</b><br/>Type: <b>${attributes.DistType}</b><br/>" + 
+            queryTemplate: "Name: <b>${attributes.DistName}</b><br/>Type: <b>${attributes.DistType}</b><br/>" +
                            "<b><a href='${attributes.Webpage}' target='_blank'>More Information</a></b><br/><hr/><br/>",
 			queryTemplateDebug: true,
 			queryLayer: "74",
@@ -185,7 +187,7 @@ maplib.config = {
 			iconSize: [38, 38],
 			iconAnchor: [10, 30],
 			popupAnchor: [-2, -2]
-		},		
+		},
 		// this should be valid syntax for jQuery.css({}).  Properties will be passed over to the search box
 		style : {
 			width : 200
