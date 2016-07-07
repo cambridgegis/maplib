@@ -474,7 +474,7 @@ maplib.finishScripts = function() {
 				var clickPoint = new L.Point(evt.layerPoint.x,evt.layerPoint.y);
 				var markerLatlng = map.layerPointToLatLng(clickPoint);
 			}
-			var popup = new L.Popup( { maxWidth : width } );
+			var popup = new L.Popup( { minWidth : width } );
 			popup.setLatLng(markerLatlng);
 			overlayConfig.queryTemplateDebug && console.log(features);
 			var content;
@@ -506,7 +506,7 @@ maplib.finishScripts = function() {
 				}
 			}
 
-			popup.setContent("<div id='results' style='width: " + width + "px'></div>");
+			popup.setContent("<div id='results'></div>");
 			map.openPopup(popup);
 			$('#results').append(content);
 
