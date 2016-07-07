@@ -506,7 +506,7 @@ maplib.finishScripts = function() {
 				}
 			}
 
-			popup.setContent("<div id='results'></div>");
+			popup.setContent("<div id='results' style='font-size: 120%'></div>");
 			map.openPopup(popup);
 			$('#results').append(content);
 
@@ -595,15 +595,16 @@ maplib.finishScripts = function() {
 				}
 
 				// if there were two or more queries, then we need to insert the "multi-layer popup" now
+				var width = 300;
 				var popupContent = '';
 				var clickPoint = new L.Point(evt.layerPoint.x,evt.layerPoint.y);
 				var markerLatlng = map.layerPointToLatLng(clickPoint);
-				var popup = new L.Popup();
+				var popup = new L.Popup( { minWidth : width } );
 				popup.setLatLng(markerLatlng);
 
 				maplib.multiresultTmpl = "<h3 class='multi_result_popup' style='background-color: #eee; margin: 4px; padding: 4px'>View results from ${cfg.title}</h3>";
 				var content = jQuery.tmpl(maplib.multiresultTmpl , resultLayers);
-				popup.setContent("<div id='multipleresults' style='width: 300px'></div>");
+				popup.setContent("<div id='multipleresults' style='font-size: 110%'></div>");
 				map.openPopup(popup);
 				$('#multipleresults').append(content);
 				jQuery('.multi_result_popup').on('click',function() {
