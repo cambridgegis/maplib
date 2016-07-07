@@ -538,6 +538,10 @@ maplib.finishScripts = function() {
 					return;
 				}
 
+				// Default queryClickTolerance to 10 if not present
+				if (!overlayConfig.queryClickTolerance) {
+					overlayConfig.queryClickTolerance = 10;
+				}
 				var ll = new L.Point(
 					evt.layerPoint.x - overlayConfig.queryClickTolerance,
 					evt.layerPoint.y + overlayConfig.queryClickTolerance
